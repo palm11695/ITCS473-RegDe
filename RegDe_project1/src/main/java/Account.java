@@ -81,6 +81,7 @@ public class Account {
 	}
 
 	public void getCheckingWithdrawInput() {
+		input = new Scanner(System.in);
 		boolean end = false;
 		while (!end) {
 			try {
@@ -102,6 +103,7 @@ public class Account {
 	}
 
 	public void getsavingWithdrawInput() {
+		input = new Scanner(System.in);
 		boolean end = false;
 		while (!end) {
 			try {
@@ -123,6 +125,7 @@ public class Account {
 	}
 
 	public void getCheckingDepositInput() {
+		input = new Scanner(System.in);
 		boolean end = false;
 		while (!end) {
 			try {
@@ -144,6 +147,7 @@ public class Account {
 	}
 
 	public void getSavingDepositInput() {
+		input = new Scanner(System.in);
 		boolean end = false;
 		while (!end) {
 			try {
@@ -166,6 +170,7 @@ public class Account {
 	}
 
 	public void getTransferInput(String accType) {
+		input = new Scanner(System.in);
 		boolean end = false;
 		while (!end) {
 			try {

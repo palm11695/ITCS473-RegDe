@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class AccountTest {
 
     boolean enabledAssertThrowsTest = false;
-    DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
+    static DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
 
 
     @Test
@@ -163,11 +163,11 @@ public class AccountTest {
             assertThrows(IllegalArgumentException.class, () -> account6.calcCheckingDeposit(2));
     }
 
-    @Test
-    public void testGetCheckingWithdrawInput() {
-        Account account = new Account(111, 1234, 10, 10);
-        InputStream stdin = System.in;
-        System.setIn(new ByteArrayInputStream("3\n".getBytes()));
+    // Utility for test method
+    private static String[] testGetCheckingWithdrawInputUtil(Account account, double inputAmount) {
+        String input = inputAmount + "\n";
+        InputStream stdin = new ByteArrayInputStream(input.getBytes());
+        System.setIn(stdin);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(byteArrayOutputStream);
@@ -176,15 +176,25 @@ public class AccountTest {
 
         account.getCheckingWithdrawInput();
 
-        System.setIn(stdin);
         System.setOut(stdout);
-
         String output = byteArrayOutputStream.toString();
-        String expectedOutput = "\nCurrent Checkings Account Balance: " + moneyFormat.format(account.calcCheckingWithdraw(3));
-        assertEquals(output, expectedOutput);
+        String expectedOutput = "\nCurrent Checkings Account Balance: $10.00\n" +
+                "\nAmount you want to withdraw from Checkings Account: " +
+                "\nCurrent Checkings Account Balance: " + moneyFormat.format(account.getCheckingBalance()) + "\n";
+
+        String[] result = {output, expectedOutput};
+        return result;
     }
 
-    //getCheckingWithdrawInput ()
+    @Test
+    public void testGetCheckingWithdrawInput() {
+        Account account = new Account(111, 1234, 10, 10);
+
+        String[] output = testGetCheckingWithdrawInputUtil(account, 3);
+
+        assertEquals(output[0], output[1]);
+    }
+
     //getSavingWithdrawInput ()
     //getCheckingDepositInput ()
     //getSavingDepositInput ()
