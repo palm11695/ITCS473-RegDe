@@ -422,7 +422,7 @@
             1. choice
             2. amount
       Return type: void
-      Return value: value of checkingBalance and savingBalance after transfer
+      Return value: -
       Exceptional behavior: Input incorrect value according to conditions (In first input (choice): inputting anything than 1 and 2, second input (amount): inputting negative number or alphabet)
 
   **c) Model the input domain**
