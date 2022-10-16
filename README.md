@@ -200,3 +200,272 @@
       6) (2) ->  Expected values: Throw Error (IllegalArgumentException)
 
 ---
+
+# #6 testGetCheckingWithdrawInput #
+  
+  *Goal: to test if the getCheckingWithdrawInput is calculated correctly*
+
+  **a) Identify testable function**
+      
+      getCheckingWithdrawInput()
+
+  **b) Identify parameters, return types, return values, and exceptional behavior**
+      
+      Parameters: -
+      Hidden parameters: 
+            1. checkingBalance
+            2. amount
+      Return type: void
+      Return value: -
+      Exceptional behavior: Input incorrect value according to conditions (Input can’t be a negative number, alphabet, or amount of withdrawal exceeds balance.)
+
+  **c) Model the input domain**
+      
+      C1:digit of ‘amount’ (interface-based)
+          b1: one digit
+          b2: more than one digit
+
+      C2: Input Validation (functionality-based)
+          b1: Correct input (amount >= 0 & balance >= amount)
+          b2: Negative number with re-input correct input
+	      b3: Invalid input (Not Number) with re-input correct input
+	      b4 : Throw NoSuchElementException
+
+  **d) Combine partitions to define test requirements**
+      
+      PWC: 4 * 2  = 8
+      (C1b1, C2b1), (C1b1, C2b2), (C1b1, C2b3), (C1b1, C2b4), 
+	  (C1b2, C2b1), (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
+
+
+  **e) Derive test values and expected values.**
+      
+      ‘\n’ means the end of one input.
+      Assume checkingBalance =  100
+      1) “1” -> Expected values: checkingBalance =  99
+      2) “-1\n1” ->  Expected values: checkingBalance = 99, Notify message (Balance Cannot be Negative.)
+      3) “a\n1” ->  Expected values: checkingBalance = 99, Notify message (Invalid Choice.)
+      4) “-1” -> Expected values: checkingBalance = 100 Throw NoSuchElementException        5) “10” ->  Expected values: checkingBalance = 90
+      6) “-10\n10” ->  Expected values: checkingBalance = 90, Notify message (Balance Cannot be Negative.)
+      7) “a\n10” ->  Expected values: checkingBalance =90, Notify message (Invalid Choice.)
+      8) “-10” ->  Expected values: checkingBalance = 100 Throw NoSuchElementException
+
+
+---
+
+# #7 testGetSavingWithdrawInput #
+  
+  *Goal: to test if the getSavingWithdrawInput is calculated correctly*
+
+  **a) Identify testable function**
+      
+      getSavingWithdrawInput()
+
+  **b) Identify parameters, return types, return values, and exceptional behavior**
+      
+      Parameters: -
+      Hidden parameters: 
+            1. checkingBalance
+            2. amount
+      Return type: void
+      Return value: -
+      Exceptional behavior: Input incorrect value according to conditions (Input can’t be a negative number, alphabet, or amount of withdrawal exceeds balance.)
+
+  **c) Model the input domain**
+      
+      C1:digit of ‘amount’ (interface-based)
+          b1: one digit
+          b2: more than one digit
+
+      C2: Input Validation (functionality-based)
+          b1: Correct input (amount >= 0 & balance >= amount)
+          b2: Negative number with re-input correct input
+	      b3: Invalid input (Not Number) with re-input correct input
+	      b4 : Throw NoSuchElementException
+
+  **d) Combine partitions to define test requirements**
+      
+      BCC (C1b2, C2b1) =  1 + (1 + 3) = 1 + 4
+      Base Choice = (C1b2, C2b1)
+	  (C1b1, C2b1),
+	  (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
+
+  **e) Derive test values and expected values.**
+      
+      ‘\n’ means the end of one input.
+      Assume checkingBalance =  100
+      1) “1” -> Expected values: checkingBalance =  99
+      2) “10” ->  Expected values: checkingBalance = 90
+      3) “-10\n10” ->  Expected values: checkingBalance = 90, Notify message (Balance Cannot be Negative.)
+      4) “a\10” ->  Expected values: checkingBalance =90, Notify message (Invalid Choice.)
+      5) “-10” ->  Expected values: checkingBalance = 100 Throw NoSuchElementException
+
+
+---
+
+# #8 testGetCheckingDepositInput #
+  
+  *Goal: to test if the getCheckingDepositInput is calculated correctly*
+
+  **a) Identify testable function**
+      
+      getCheckingDepositInput()
+
+  **b) Identify parameters, return types, return values, and exceptional behavior**
+      
+      Parameters: -
+      Hidden parameters: 
+            1. checkingBalance
+            2. amount
+      Return type: void
+      Return value: -
+      Exceptional behavior: Input incorrect value according to conditions (Input can’t be a negative number or alphabet)
+
+  **c) Model the input domain**
+      
+      C1:digit of ‘amount’ (interface-based)
+          b1: one digit
+          b2: more than one digit
+
+      C2: Input Validation (functionality-based)
+          b1: Correct input (amount >= 0)
+          b2: Negative number with re-input correct input
+	      b3: Invalid input (Not Number) with re-input correct input
+	      b4 : Throw NoSuchElementException
+
+  **d) Combine partitions to define test requirements**
+      
+      BCC (C1b2, C2b1) =  1 + (1 + 3) = 1 + 4
+      Base Choice = (C1b2, C2b1)
+	  (C1b1, C2b1),
+	  (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
+
+  **e) Derive test values and expected values.**
+      
+      ‘\n’ means the end of one input.
+      Assume checkingBalance =  100
+      1) “1” -> Expected values: checkingBalance =  101
+      2) “10” ->  Expected values: checkingBalance = 110
+      3) “-10\n10” ->  Expected values: checkingBalance = 110, Notify message (Balance Cannot be Negative.)
+      4) “a\10” ->  Expected values: checkingBalance = 110, Notify message (Invalid Choice.)
+      5) “-10” ->  Expected values: checkingBalance = 100 Throw NoSuchElementException
+
+
+---
+
+# #9 testGetSavingDepositInput #
+  
+  *Goal: to test if money is deposit to the account correctly*
+
+  **a) Identify testable function**
+      
+      getSavingDepositInput()
+
+  **b) Identify parameters, return types, return values, and exceptional behavior**
+      
+      Parameters: amount
+      Hidden parameters: 
+            1. checkingBalance
+            2. amount
+      Return type: void
+      Return value: -
+      Return value: Input incorrect value according to conditions (Input can’t be a negative number or alphabet)
+
+  **c) Model the input domain**
+      
+      C1:digit of ‘amount’ (interface-based)
+          b1: one digit
+          b2: more than one digit
+
+      C2: Input Validation (functionality-based)
+          b1: Correct input (amount >= 0)
+          b2: Negative number with re-input correct input
+	      b3: Invalid input (Not Number) with re-input correct input
+	      b4 : Throw NoSuchElementException
+
+  **d) Combine partitions to define test requirements**
+      
+      MBCC: 2 + 2 * (2 - 1) + 2 * (4 - 2) = 2 + 6
+      Base choices = [(C1b1, C2b1), (C1b1, C2b2)]
+      (C1b2, C2b1), (C1b2, C2b2), 
+      (C1b1, C2b3), (C1b1, C2b4), #1
+      (C1b1, C2b3), (C1b1, C2b4), (duplicate with #1) 
+
+
+  **e) Derive test values and expected values.**
+      
+      Assume checkingBalance = 100
+      1) "1" -> Expected values: checkingBalance = 101
+      2) "-1\n1" ->  Expected values: checkingBalance = 101, Notify message (Balance Cannot be Negative.) 
+      3) "10" ->  Expected values: checkingBalance = 110
+      4) "-10\n10" ->  Expected Value: checkingBalance = 110, Notify message (Balance Cannot be Negative.)
+      5) "a\n1" ->   Expected values: checkingBalance = 101, Notify message (Invalid Choice.)
+      6) "a" ->   Expected values: checkingBalance = 100, Throw NoSuchElementException 
+      7) and 8) are 5) and 6) duplication
+
+
+---
+
+# #10 testGetTransferInput #
+  
+  *Goal: to test if the money is transfer between checking and saving account correctly*
+
+  **a) Identify testable function**
+      
+      getTransferInput()
+
+  **b) Identify parameters, return types, return values, and exceptional behavior**
+      
+      Parameters: accType: String
+      Hidden parameters: 
+            1. choice
+            2. amount
+      Return type: void
+      Return value: value of checkingBalance and savingBalance after transfer
+      Exceptional behavior: Input incorrect value according to conditions (In first input (choice): inputting anything than 1 and 2, second input (amount): inputting negative number or alphabet)
+
+  **c) Model the input domain**
+      
+      C1: accType value
+          b1: accType = Checkings
+          b2: accType = Saving
+
+      C2: Input Validation choice(functionality-based)
+          b1: Correct input (1, 2)
+          b2: Wrong input with re-input correct input
+          b3: Throw NoSuchElementException
+
+      C3: Input Validation amount (functionality-based)
+          b1: Correct input (amount >= 0 & balance >= amount)
+          b2: Negative number with re-input correct input
+          b3: Invalid input (Not Number) with re-input correct input
+          b4: Throw NoSuchElementException
+
+
+  **d) Combine partitions to define test requirements**
+      
+      MBCC: 2 + 2 * (2 - 1) + 2 * (3 - 2) + 2 * (4 - 2) = 2 + 8
+      Base choices = [(C1b1, C2b1, C3b1), (C1b1, C2b2, C3b2)]
+      (C1b2, C2b1, C3b1), (C1b2, C2b2, C3b2),
+      (C1b1, C2b3, C3b1), (C1b1, C2b3, C3b2),
+      (C1b1, C2b1, C3b3), (C1b1, C2b1, C3b4),
+      (C1b1, C2b2, C3b3), (C1b1, C2b2, C3b4)
+
+
+  **e) Derive test values and expected values.**
+      
+      Assume checkingBalance = 100
+      Assume savingBalance = 100
+      1) accType = "Checking", "1", "1" -> Expected values: checkingBalance = 99, savingBalance = 101
+      2) accType = "Checking", "3\n2", "-1\n1" ->  Expected values: End of method with no output stream, checkingBalance = 100, savingBalance = 100
+      3) accType = "Saving", "1", "1" -> Expected values: checkingBalance = 101, savingBalance = 99
+      4) accType = "Saving", "3\n1", "-1\n1" ->  Expected values: Notify user: Invalid Choice, Notify user: Invalid Choice, checkingBalance = 101, savingBalance = 99
+      5) accType = "Checking", "3", "1" ->  Expected values: Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
+      6) accType = "Checking", "3", "-1\n1" ->  Expected values: Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
+      7) accType = "Checking", "1", "a\n1" ->  Expected values: Notify user: Invalid Choice, checkingBalance = 99, savingBalance = 101
+      8) accType = "Checking", "1", "-1" ->  Expected values: Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
+      9) accType = "Checking", "3\n2", "a\n1" ->  Expected values: End of method with no output stream, checkingBalance = 100, savingBalance = 100
+      10) accType = "Checking", "3\n1", "-1" ->  Expected values: Notify user: Invalid Choice, Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
+
+
+---
