@@ -427,16 +427,20 @@
 
   **c) Model the input domain**
       
-      C1: accType value
+      C1: Is accType null? (interface-based)
+          b1: accType = null
+          b2: accType != null
+    
+      C2: accType value (functionality-based)
           b1: accType = Checkings
           b2: accType = Saving
 
-      C2: Input Validation choice(functionality-based)
+      C3: Input Validation choice(functionality-based)
           b1: Correct input (1, 2)
           b2: Wrong input with re-input correct input
           b3: Throw NoSuchElementException
 
-      C3: Input Validation amount (functionality-based)
+      C4: Input Validation amount (functionality-based)
           b1: Correct input (amount >= 0 & balance >= amount)
           b2: Negative number with re-input correct input
           b3: Invalid input (Not Number) with re-input correct input
@@ -445,28 +449,27 @@
 
   **d) Combine partitions to define test requirements**
       
-      MBCC: 2 + 2 * (2 - 1) + 2 * (3 - 2) + 2 * (4 - 2) = 2 + 8
-      Base choices = [(C1b1, C2b1, C3b1), (C1b1, C2b2, C3b2)]
-      (C1b2, C2b1, C3b1), (C1b2, C2b2, C3b2),
-      (C1b1, C2b3, C3b1), (C1b1, C2b3, C3b2),
-      (C1b1, C2b1, C3b3), (C1b1, C2b1, C3b4),
-      (C1b1, C2b2, C3b3), (C1b1, C2b2, C3b4)
+      MBCC: 2 + 2 * (2 - 2) + 2 * (2 - 2) + 2 * (3 - 2) + 2 * (4 - 2) = 2 + 6
+      [Correct] [Invalid]
+      Base choice = [(C1b1, C2b1, C3b1, C4b1), (C1b2, C2b2, C3b2, C4b2)]
+      (C1b1, C2b1, C3b3, C4b1), (C1b2, C2b2, C3b3, C4b2),
+      (C1b1, C2b1, C3b1, C4b3), (C1b1, C2b1, C3b1, C4b4),
+      (C1b2, C2b2, C3b2, C4b3), (C1b2, C2b2, C3b2, C4b4),
+
 
 
   **e) Derive test values and expected values.**
       
       Assume checkingBalance = 100
       Assume savingBalance = 100
-      1) accType = "Checking", "1", "1" -> Expected values: checkingBalance = 99, savingBalance = 101
-      2) accType = "Checking", "3\n2", "-1\n1" ->  Expected values: End of method with no output stream, checkingBalance = 100, savingBalance = 100
-      3) accType = "Saving", "1", "1" -> Expected values: checkingBalance = 101, savingBalance = 99
-      4) accType = "Saving", "3\n1", "-1\n1" ->  Expected values: Notify user: Invalid Choice, Notify user: Invalid Choice, checkingBalance = 101, savingBalance = 99
-      5) accType = "Checking", "3", "1" ->  Expected values: Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
-      6) accType = "Checking", "3", "-1\n1" ->  Expected values: Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
-      7) accType = "Checking", "1", "a\n1" ->  Expected values: Notify user: Invalid Choice, checkingBalance = 99, savingBalance = 101
-      8) accType = "Checking", "1", "-1" ->  Expected values: Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
-      9) accType = "Checking", "3\n2", "a\n1" ->  Expected values: End of method with no output stream, checkingBalance = 100, savingBalance = 100
-      10) accType = "Checking", "3\n1", "-1" ->  Expected values: Notify user: Invalid Choice, Throw NoSuchElementException, checkingBalance = 100, savingBalance = 100
+      1) accType = null, "1", "1" -> Expected values: Throw Error NullPointerException, checkingBalance = 100, savingBalance = 100
+      2) accType = “Savings”, "3\n1", "-1\n1" ->  Expected values: checkingBalance = 101, savingBalance = 99
+      3) accType = null, "-3", "1" -> Expected values: Throw Error NullPointerException, checkingBalance = 100, savingBalance = 100
+      4) accType = "Savings", "3", "-1\n1" ->  Expected values: Throw Error NoSuchElementException, checkingBalance = 100, savingBalance = 100
+      5) accType = null, "1", "a\n1" ->  Expected values: Throw Error NullPointerException, checkingBalance = 100, savingBalance = 100
+      6) accType = null, "1", "-3" ->  Expected values: Throw Error NullPointerException, checkingBalance = 100, savingBalance = 100
+      7) accType = "Savings", "3\n1", "a\n1\n1" -> Expected values: Notify user: Invalid Choice, Notify user: Invalid Choice, checkingBalance = 101, savingBalance = 99
+      8) accType = "Savings", "3\n2", "-1" ->  Expected values: End program with no balance update, checkingBalance = 100, savingBalance = 100
 
 
 ---
