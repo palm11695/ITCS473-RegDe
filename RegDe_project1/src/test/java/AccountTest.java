@@ -465,4 +465,92 @@ public class AccountTest {
         assertEquals(account.getSavingBalance(), initBalance + actualWithdraw, 0.0);
     }
 
+    private static void testGetTransferInputUtil(String type, String inputSelection, String inputAmount, Account account, double initBalance) {
+        String input = inputSelection + "\n" + inputAmount + "\n";
+        InputStream stdin = new ByteArrayInputStream(input.getBytes());
+        System.setIn(stdin);
+
+        account.getTransferInput(type);
+    }
+
+    @Test
+    public void testGetTransferInput() {
+        double initBalance = 100;
+        double actualAmount;
+
+        // 1 (C1b1, C2b1, C3b1, C4b1)
+        type = null;
+        actualAmount = 0;
+        account = new Account(0, 0, initBalance, initBalance);
+        assertThrows(
+                NullPointerException.class,
+                () -> testGetTransferInputUtil(type, "1", "1", account, initBalance));
+        assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
+
+        // 2 (C1b2, C2b2, C3b2, C4b2)
+        type = "Savings";
+        actualAmount = 1;
+        account = new Account(0, 0, initBalance, initBalance);
+        testGetTransferInputUtil(type, "3\n1", "1\n" + actualAmount , account, initBalance);
+        assertEquals(account.getCheckingBalance(), initBalance + actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance - actualAmount, 0.0);
+
+        // 3 (C1b1, C2b1, C3b3, C4b1)
+        type = null;
+        actualAmount = 0;
+        account = new Account(0, 0, initBalance, initBalance);
+        assertThrows(
+                NullPointerException.class,
+                () -> testGetTransferInputUtil(type, "-3", "1", account, initBalance));
+        assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
+
+        // 4 (C1b2, C2b2, C3b3, C4b2)
+        type = "Savings";
+        actualAmount = 0;
+        account = new Account(0, 0, initBalance, initBalance);
+        assertThrows(
+                NoSuchElementException.class,
+                () -> testGetTransferInputUtil(type, "3", "-1\n1", account, initBalance));
+        assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
+
+        // 5 (C1b1, C2b1, C3b1, C4b3)
+        type = null;
+        actualAmount = 0;
+        account = new Account(0, 0, initBalance, initBalance);
+        assertThrows(
+                NullPointerException.class,
+                () -> testGetTransferInputUtil(type, "1", "a\n1", account, initBalance));
+        assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
+
+        // 6 (C1b1, C2b1, C3b1, C4b4)
+        type = null;
+        actualAmount = 0;
+        account = new Account(0, 0, initBalance, initBalance);
+        assertThrows(
+                NullPointerException.class,
+                () -> testGetTransferInputUtil(type, "1", "-3", account, initBalance));
+        assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
+
+        // 7 (C1b2, C2b2, C3b2, C4b3)
+        type = "Savings";
+        actualAmount = 1;
+        account = new Account(0, 0, initBalance, initBalance);
+        testGetTransferInputUtil(type, "3\n1", "a\n1\n" + actualAmount , account, initBalance);
+        assertEquals(account.getCheckingBalance(), initBalance + actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance - actualAmount, 0.0);
+
+        // 8 (C1b2, C2b2, C3b2, C4b4)
+        type = "Savings";
+        actualAmount = 0;
+        account = new Account(0, 0, initBalance, initBalance);
+        testGetTransferInputUtil(type, "3\n2", "-1", account, initBalance);
+        assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
+        assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
+    }
+
 }
