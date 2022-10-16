@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 Natanon Ritta et al. - All Rights Reserved
+/* Copyright (C) 2022 Natanon Ritta, Paphon Saewong, Thanakrit Maneesawas, Nichakorn Wuthiphanphaiboon, Nutsongwat Cheawka - All Rights Reserved
  * You may use, distribute and modify this code under the terms of the MIT license.
  */
 
@@ -552,5 +552,4 @@ public class AccountTest {
         assertEquals(account.getCheckingBalance(), initBalance - actualAmount, 0.0);
         assertEquals(account.getSavingBalance(), initBalance + actualAmount, 0.0);
     }
-
 }
