@@ -285,8 +285,10 @@
 
   **d) Combine partitions to define test requirements**
       
-      BCC (C1b2, C2b1) 1 + (1 + 3) = 5
-	  (C1b1, C2b1), (C1b2, C2b1), (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
+      BCC (C1b2, C2b1) =  1 + (1 + 3) = 1 + 4
+      Base Choice = (C1b2, C2b1)
+	  (C1b1, C2b1),
+	  (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
 
   **e) Derive test values and expected values.**
       
@@ -333,8 +335,10 @@
 
   **d) Combine partitions to define test requirements**
       
-      BCC (C1b2, C2b1) =  1 + (1 + 3) = 5
-	  (C1b1, C2b1), (C1b2, C2b1), (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
+      BCC (C1b2, C2b1) =  1 + (1 + 3) = 1 + 4
+      Base Choice = (C1b2, C2b1)
+	  (C1b1, C2b1),
+	  (C1b2, C2b2), (C1b2, C2b3), (C1b2, C2b4)
 
   **e) Derive test values and expected values.**
       
@@ -382,8 +386,8 @@
   **d) Combine partitions to define test requirements**
       
       MBCC: 2 + 2 * (2 - 1) + 2 * (4 - 2) = 2 + 6
-      Base choice = [(C1b1, C2b1), (C1b1, C2b2)]
-      C1b2, C2b1), (C1b2, C2b2), 
+      Base choices = [(C1b1, C2b1), (C1b1, C2b2)]
+      (C1b2, C2b1), (C1b2, C2b2), 
       (C1b1, C2b3), (C1b1, C2b4), #1
       (C1b1, C2b3), (C1b1, C2b4), (duplicate with #1) 
 
@@ -441,7 +445,7 @@
   **d) Combine partitions to define test requirements**
       
       MBCC: 2 + 2 * (2 - 1) + 2 * (3 - 2) + 2 * (4 - 2) = 2 + 8
-      Base choice = [(C1b1, C2b1, C3b1), (C1b1, C2b2, C3b2)]
+      Base choices = [(C1b1, C2b1, C3b1), (C1b1, C2b2, C3b2)]
       (C1b2, C2b1, C3b1), (C1b2, C2b2, C3b2),
       (C1b1, C2b3, C3b1), (C1b1, C2b3, C3b2),
       (C1b1, C2b1, C3b3), (C1b1, C2b1, C3b4),
