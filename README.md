@@ -401,7 +401,8 @@
       4) "-10\n10" ->  Expected Value: checkingBalance = 110, Notify message (Balance Cannot be Negative.)
       5) "a\n1" ->   Expected values: checkingBalance = 101, Notify message (Invalid Choice.)
       6) "a" ->   Expected values: checkingBalance = 100, Throw NoSuchElementException 
-      7) and 8) are 5) and 6) duplication
+      7) "b\n2" ->   Expected values: checkingBalance = 102, Notify message (Invalid Choice.)
+      8) "b" ->   Expected values: checkingBalance = 100, Throw NoSuchElementException 
 
 
 ---
